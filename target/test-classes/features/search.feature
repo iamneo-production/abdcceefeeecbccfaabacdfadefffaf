@@ -1,7 +1,8 @@
-Feature: Search functionality on a website
+Feature: Search Functionality
 
-  Scenario: User searches for a product
-    Given User is on the homepage
-    When User enters "Laptop" in the search bar
-    And User clicks the search button
-    Then Results for "Laptop" are displayed
+  Scenario: Verify search results
+    Given I am on the homepage
+    When I search for "product"
+    Then I should see search results
+    And the results should contain at least 10 products
+    And the results should be sorted by relevance
