@@ -1,9 +1,7 @@
-# Sample search.feature
-Feature: Search Functionality Test
+Feature: Search functionality on a website
 
-  Scenario: Verify the presence of the search bar on the homepage
-    Given I open the browser
-    When I navigate to the homepage
-    Then I should see the search bar
-
-  # Add more scenarios as needed...
+  Scenario: User searches for a product
+    Given User is on the homepage
+    When User enters "Laptop" in the search bar
+    And User clicks the search button
+    Then Results for "Laptop" are displayed

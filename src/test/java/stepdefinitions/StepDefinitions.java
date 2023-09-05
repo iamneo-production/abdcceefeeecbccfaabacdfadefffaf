@@ -1,40 +1,43 @@
-// Sample StepDefinitions.java
 package stepdefinitions;
 
 import io.cucumber.java.en.Given;
-import cucumber.api.java.After;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import framework.DriverManager;
-import framework.PropertiesReader;
+
+import static org.junit.Assert.assertEquals;
 
 public class StepDefinitions {
     private WebDriver driver;
 
-    @Given("I open the browser")
-    public void i_open_the_browser() {
-        String browser = PropertiesReader.getBrowser();
-        driver = DriverManager.getDriver(browser);
+    @Given("User is on the homepage")
+    public void userIsOnHomepage() {
+        // Set up WebDriver
+        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        driver = new ChromeDriver();
+        driver.get("https://example.com"); // Replace with your website URL
     }
 
-    @When("I navigate to the homepage")
-    public void i_navigate_to_the_homepage() {
-        driver.get("https://example.com"); // Replace with your webpage URL
+    @When("User enters {string} in the search bar")
+    public void userEntersTextInSearchBar(String searchText) {
+        WebElement searchInput = driver.findElement(By.name("q")); // Replace with the actual search input locator
+        searchInput.sendKeys(searchText);
     }
 
-    @Then("I should see the search bar")
-    public void i_should_see_the_search_bar() {
-        // Add assertions to check if the search bar is visible
+    @When("User clicks the search button")
+    public void userClicksSearchButton() {
+        WebElement searchButton = driver.findElement(By.name("search")); // Replace with the actual search button locator
+        searchButton.click();
     }
 
-    // Implement more steps for your scenarios...
-
-    @After
-    public void closeBrowser() {
-        if (driver != null) {
-            driver.quit();
-        }
+    @Then("Results for {string} are displayed")
+    public void resultsForTextAreDisplayed(String searchText) {
+        WebElement resultElement = driver.findElement(By.id("results")); // Replace with the actual results element locator
+        String displayedText = resultElement.getText();
+        assertEquals("Results do not match", "Results for " + searchText, displayedText);
+        driver.quit();
     }
 }
