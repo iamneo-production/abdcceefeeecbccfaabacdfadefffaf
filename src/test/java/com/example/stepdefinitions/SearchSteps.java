@@ -11,6 +11,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import com.example.utils.DriverManager;
+
 
 public class SearchSteps {
     private WebDriver driver;
